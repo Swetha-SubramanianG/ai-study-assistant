@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Study Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">🎓</div>
+        <div>
+          <h1 class="brand-title">AI Study Assistant</h1>
+          <p class="brand-subtitle">Ask any academic question and get a simple AI-generated explanation.</p>
+        </div>
+      </div>
+      <div class="header-status" id="apiStatusBadge">
+        <span class="status-dot"></span>
+        <span class="status-text" id="statusText">Agent Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="main-container">
+
+    <!-- Input Section: Question Submission -->
+    <section class="card input-card">
+      <div class="card-header">
+        <h2>Ask Your Question</h2>
+        <span class="badge">Study Agent</span>
+      </div>
+
+      <form id="questionForm">
+        <div class="form-group">
+          <label for="questionInput" class="form-label">Type your academic or programming question:</label>
+          <textarea 
+            id="questionInput" 
+            name="question"
+            rows="4" 
+            placeholder="e.g. What is inheritance in Java? Or what is photosynthesis?"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Sample Questions Quick Chips -->
+        <div class="chips-container">
+          <span class="chips-label">Try sample:</span>
+          <button type="button" class="chip-btn" data-question="What is inheritance in Java?">Inheritance in Java</button>
+          <button type="button" class="chip-btn" data-question="What is photosynthesis?">Photosynthesis</button>
+          <button type="button" class="chip-btn" data-question="What is a stack data structure?">Stack Data Structure</button>
+        </div>
+
+        <!-- Action Row -->
+        <div class="form-actions">
+          <button type="submit" id="askButton" class="btn btn-primary">
+            <span class="btn-icon">⚡</span> Ask AI
+          </button>
+          <button type="button" id="clearInputBtn" class="btn btn-secondary">Clear Input</button>
+        </div>
+      </form>
+
+      <!-- Loading State: Displays "AI is thinking..." -->
+      <div id="loadingIndicator" class="loading-container hidden">
+        <div class="spinner"></div>
+        <div class="loading-content">
+          <p class="loading-text">AI is thinking...</p>
+          <span class="loading-subtext">Structuring explanation, examples, and key points...</span>
+        </div>
+      </div>
+
+      <!-- Error State: Displays "Unable to generate a response. Please try again." -->
+      <div id="errorMessage" class="error-container hidden">
+        <div class="error-icon">⚠️</div>
+        <div class="error-content">
+          <p class="error-text">Unable to generate a response. Please try again.</p>
+          <p id="errorDetail" class="error-detail"></p>
+        </div>
+        <button type="button" id="dismissErrorBtn" class="dismiss-btn">&times;</button>
+      </div>
+    </section>
+
+    <!-- Latest AI Response Area -->
+    <section id="latestResponseSection" class="card response-card hidden">
+      <div class="card-header response-header">
+        <div>
+          <span class="section-tag">Current Answer</span>
+          <h2 id="responseQuestionTitle" class="response-title">Question</h2>
+        </div>
+        <span id="responseCategoryBadge" class="badge badge-accent">Academic Topic</span>
+      </div>
+
+      <!-- Structured Response Sections -->
+      <div class="sections-wrapper" id="responseSectionsContainer">
+        <!-- 1. Definition -->
+        <div class="response-box section-definition">
+          <div class="box-heading">
+            <span class="box-icon">📖</span>
+            <h3>Definition</h3>
+          </div>
+          <div id="definitionContent" class="box-body"></div>
+        </div>
+
+        <!-- 2. Explanation -->
+        <div class="response-box section-explanation">
+          <div class="box-heading">
+            <span class="box-icon">💡</span>
+            <h3>Explanation</h3>
+          </div>
+          <div id="explanationContent" class="box-body"></div>
+        </div>
+
+        <!-- 3. Example -->
+        <div class="response-box section-example">
+          <div class="box-heading">
+            <span class="box-icon">💻</span>
+            <h3>Example</h3>
+          </div>
+          <div id="exampleContent" class="box-body"></div>
+        </div>
+
+        <!-- 4. Important Points -->
+        <div class="response-box section-points">
+          <div class="box-heading">
+            <span class="box-icon">📌</span>
+            <h3>Important Points</h3>
+          </div>
+          <div id="pointsContent" class="box-body"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chat History Section -->
+    <section class="card history-card">
+      <div class="card-header history-header">
+        <div>
+          <h2>Chat History</h2>
+          <p class="history-subtitle">Previous questions and explanations from this study session.</p>
+        </div>
+        <button type="button" id="clearChatBtn" class="btn btn-danger">
+          <span class="btn-icon">🗑️</span> Clear Chat
+        </button>
+      </div>
+
+      <!-- History List Container -->
+      <div id="historyContainer" class="history-list">
+        <div id="emptyHistoryNotice" class="empty-state">
+          <span class="empty-icon">📚</span>
+          <p class="empty-title">No questions asked yet</p>
+          <p class="empty-desc">Ask your first academic question above to start building your study notes.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>AI Study Assistant Agent &bull; College Laboratory Demonstration &bull; Powered by Prompt Engineering</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
